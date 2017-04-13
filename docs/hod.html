@@ -7,10 +7,10 @@
   <title>Генератор документов</title>
   <script type="text/javascript" src="lib/substance.min.js"></script>
   <script type="text/javascript" src="lib/substance-forms.min.js"></script>
+  <script type="text/javascript" src="export.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.5.2/dom-to-image.min.js"></script>
   <script src="https://fastcdn.org/FileSaver.js/1.1.20151003/FileSaver.min.js"></script>
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
   <script type="text/javascript">
     var forms
     window.addEventListener('load', function() {
@@ -27,7 +27,6 @@
         court: document.getElementById('court').value,
         defender: document.getElementById('defender').value
       }
-      console.info(data)
 
       for (var key in data) {
         if (data.hasOwnProperty(key)) {
@@ -40,10 +39,9 @@
       var text = document.getElementById('text')
       var actions = document.getElementById('actions')
 
-      page.classList.add('animated', 'slideOutDown')
       setTimeout(function() {
         page.style.display = 'none'
-      }, 1000)
+      }, 100)
 
       setTimeout(function() {
         text.style.display = 'block'
@@ -54,16 +52,6 @@
       forms.addRichTextArea('text', document.getElementById('text'), {
         enabledPackages: ['heading', 'strong', 'emphasis', 'link', 'list', 'table', 'text-align']
       })
-    }
-
-    function savePdf() {
-      var node = document.getElementById('text');
-      var docEl = node.children[0]
-
-      domtoimage.toBlob(docEl)
-        .then(function (blob) {
-          window.saveAs(blob, 'legal-doc.png');
-        })
     }
   </script>
 </head>
@@ -148,8 +136,9 @@
     <p>«_____» __________ 2017                                                                          ______________/_________/</p>
   </div>
   <div id="actions">
-    <div class="print" onclick="window.print()">Print</div>
-    <div class="pdf" onclick="savePdf()">PNG</div>
+    <div class="print" onclick="window.print()"><i class="fa fa-print fa-2x"></i></div>
+    <div class="pdf" onclick="savePng()"><i class="fa fa-file-image-o fa-2x"></i></div>
+    <div class="doc" onclick="saveDoc()"><i class="fa fa-file-word-o fa-2x"></i></div>
   </div>
 </body>
 </html>

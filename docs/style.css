@@ -44,11 +44,24 @@ body {
   display: none;
   position: fixed;
   width: 50px;
-  height: 100px;
+  height: 140px;
   border: 1px solid #000;
   border-left: none;
   top: 50%;
   margin-top: -50px;
+  text-align: center;
+  padding: 10px;
+}
+
+#actions div {
+  margin-bottom: 10px;
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+#actions div:hover {
+  margin-bottom: 10px;
+  opacity: 1;
 }
 
 a {
