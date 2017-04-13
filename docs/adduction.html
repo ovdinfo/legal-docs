@@ -1,0 +1,152 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Генератор документов</title>
+  <script type="text/javascript" src="lib/substance.min.js"></script>
+  <script type="text/javascript" src="lib/substance-forms.min.js"></script>
+  <script type="text/javascript" src="export.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.5.2/dom-to-image.min.js"></script>
+  <script src="https://fastcdn.org/FileSaver.js/1.1.20151003/FileSaver.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+  <script type="text/javascript">
+    var forms
+    window.addEventListener('load', function() {
+      forms = new SubstanceForms()
+
+      forms.addRichTextArea('explanations', document.getElementById('explanations'), {
+        enabledPackages: ['strong', 'emphasis', 'link', 'list']
+      })
+    })
+
+    function _onSubmit(e) {
+      e.preventDefault()
+      e.stopPropagation()
+      var data = {
+        author: document.getElementById('author').value,
+        address: document.getElementById('address').value,
+        judge: document.getElementById('judge').value,
+        court: document.getElementById('court').value,
+        explanations: forms.getHTML('explanations')
+      }
+
+      for (var key in data) {
+        if (data.hasOwnProperty(key)) {
+          var el = document.getElementById(key + '-var')
+          if(el) el.innerHTML = data[key]
+        }
+      }
+      
+      var el = document.getElementById('explanations-var')
+      if(el) el.outerHTML = data[key]
+
+      var page = document.getElementById('page')
+      var text = document.getElementById('text')
+      var actions = document.getElementById('actions')
+
+      setTimeout(function() {
+        page.style.display = 'none'
+      }, 100)
+
+      setTimeout(function() {
+        text.style.display = 'block'
+        actions.style.display = 'block'
+        window.scrollTo(0, 0)
+      }, 100)
+
+      forms.addRichTextArea('text', document.getElementById('text'), {
+        enabledPackages: ['heading', 'strong', 'emphasis', 'link', 'list', 'table', 'text-align']
+      })
+    }
+  </script>
+</head>
+<body>
+  <div id="page">
+    <div class="title">Ходатайство о приобщении объяснения к материалам дела</div>
+    <div class="intro">
+      <p>
+        <a href="https://ovdinfo.org/sites/default/files/sud/hodat_priobschenie_objasnenij_k_mat-lam_dela.doc" target="_blank">Скачать шаблон</a>.
+      </p>
+      <p>
+        Это само важное ваше действие в суде. Подачей этого ходатайства вы обязуете судью не забыть при рассмотрении дела обо всех фактах и нюансах, доказывающих вашу невиновность и раскрывающих вашу правовую позицию. Кроме этого, письменное объяснение поможет вам не растеряться в суде, отвечая на вопросы судьи. Наконец, помните - протокол судебного слушания не ведется, и ваша позиция появится в материалах дела только в том случае, если она изложена письменно. Ваша позиция и объяснения будут играть критическую роль при апелляции и в ЕСПЧ. Можно воспользоваться таким <a href="https://ovdinfo.org/sites/default/files/sud/objasnenija_obrazez.docx" target="_blank">шаблоном объяснения</a>.
+      </p>
+    </div>
+    <form id="submission" onsubmit="_onSubmit(event)">
+      <div class="form-section">
+        <div class="form-heading">Как вас зовут?</div>
+        <div class="form-hint">
+          Укажите ваше ФИО в родительном падеже
+        </div>
+        <input id="author" class="form-input" type="text" placeholder="Иванова Ивана Ивановича" name="author">
+      </div>
+
+      <div class="form-section">
+        <div class="form-heading">Адрес регистрации</div>
+        <div class="form-hint">
+          Укажите адрес регистрации
+        </div>
+        <input id="address" class="form-input" type="text" placeholder="г. Москва, ул. Правобережная, д. 73, кв. 157" name="address">
+      </div>
+
+      <div class="form-section">
+        <div class="form-heading">Кто вас судит?</div>
+        <div class="form-hint">
+          Укажите фамилию и инициалы судьи в дательном падеже
+        </div>
+        <input id="judge" class="form-input" type="text" placeholder="Петрову Д.С." name="judge">
+      </div>
+
+      <div class="form-section">
+        <div class="form-heading">Где вас судят?</div>
+        <div class="form-hint">
+          Укажите название суда в родительном падеже
+        </div>
+        <input id="court" class="form-input" type="text" placeholder="Тверского районного суда г. Москвы" name="court" value="Тверского районного суда г. Москвы">
+      </div>
+
+      <div class="form-section">
+        <div class="form-heading">Объяснения</div>
+        <div class="form-hint">
+          Какие документы вы можете приложить к делу?
+        </div>
+        <div id="explanations" editable data-type="area">
+          <p>1. Объяснения лица, в отношении которого ведется дело об административном правонарушении.</p>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <button id="submit-button" type="submit" form="submission">Сгенерировать ходатайство</button>
+        <div class="form-hint text-center">
+          P.S.: Ваши данные к нам не попадут<br>
+          документ генерируется в вашем браузере
+        </div>
+      </div>
+    </form>
+  </div>
+  <div id="text" editable data-type="area">
+    <p data-text-align="right">Федеральному судье <span id="judge-var"></span></p>
+    <p data-text-align="right"><span id="court-var"></span></p>
+    <p data-text-align="right">От <span id="author-var"></span></p>
+    <p data-text-align="right">Зарегистрированного по адресу <span id="address-var"></span></p>
+    <p></p>
+    <h1 data-text-align="center">ХОДАТАЙСТВО</h1>
+    <h1 data-text-align="center">о приобщении объяснений</h1>
+    <p>Согласно части 1 статьи 25.1 КоАП РФ, лицо, в отношении которого ведется производство по делу об административном правонарушении, вправе знакомиться со всеми материалами дела, давать объяснения, представлять доказательства, заявлять ходатайства и отводы, пользоваться юридической помощью защитника, а также иными процессуальными правами в соответствии с настоящим Кодексом.</p>
+    <p><strong><em>а основании вышеизложенного и руководствуясь статье 26.2 КоАП РФ, для установления обстоятельств, имеющих ключевое значение для полного, всестороннего и объективного рассмотрения дела, ПРОШУ приобщить к материалам дела объяснения лица, в отношении которого ведется дело об административном правонарушении.</em></strong>
+    </p>
+    <p>Прилагаемые документы:</p>
+    <div id="explanations-var"></div>
+    <p>В соответствии с частью 2 статьи 24.4 КоАП РФ ходатайство подлежит немедленному рассмотрению, решение об отказе в удовлетворении ходатайства выносится судьей в виде определения.</p>
+    <p><strong><em>На основании этого, ПРОШУ немедленно рассмотреть ходатайство, в случае отказа, ПРОШУ вынести решение в виде определения.</em></strong></p>
+    <p></p>
+    <p>«_____» __________ 2017                                                                          ______________/_________/</p>
+  </div>
+  <div id="actions">
+    <div class="print" onclick="window.print()"><i class="fa fa-print fa-2x"></i></div>
+    <div class="pdf" onclick="savePng()"><i class="fa fa-file-image-o fa-2x"></i></div>
+    <div class="doc" onclick="saveDoc()"><i class="fa fa-file-word-o fa-2x"></i></div>
+  </div>
+</body>
+</html>
