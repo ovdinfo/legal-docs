@@ -1,0 +1,155 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Генератор документов</title>
+  <script type="text/javascript" src="lib/substance.min.js"></script>
+  <script type="text/javascript" src="lib/substance-forms.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.5.2/dom-to-image.min.js"></script>
+  <script src="https://fastcdn.org/FileSaver.js/1.1.20151003/FileSaver.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+  <script type="text/javascript">
+    var forms
+    window.addEventListener('load', function() {
+      forms = new SubstanceForms()
+    })
+
+    function _onSubmit(e) {
+      e.preventDefault()
+      e.stopPropagation()
+      var data = {
+        author: document.getElementById('author').value,
+        address: document.getElementById('address').value,
+        judge: document.getElementById('judge').value,
+        court: document.getElementById('court').value,
+        defender: document.getElementById('defender').value
+      }
+      console.info(data)
+
+      for (var key in data) {
+        if (data.hasOwnProperty(key)) {
+          var el = document.getElementById(key + '-var')
+          if(el) el.innerHTML = data[key]
+        }
+      }
+
+      var page = document.getElementById('page')
+      var text = document.getElementById('text')
+      var actions = document.getElementById('actions')
+
+      page.classList.add('animated', 'slideOutDown')
+      setTimeout(function() {
+        page.style.display = 'none'
+      }, 1000)
+
+      setTimeout(function() {
+        text.style.display = 'block'
+        actions.style.display = 'block'
+        window.scrollTo(0, 0)
+      }, 100)
+
+      forms.addRichTextArea('text', document.getElementById('text'), {
+        enabledPackages: ['heading', 'strong', 'emphasis', 'link', 'list', 'table', 'text-align']
+      })
+    }
+
+    function savePdf() {
+      var node = document.getElementById('text');
+      var docEl = node.children[0]
+
+      domtoimage.toBlob(docEl)
+        .then(function (blob) {
+          window.saveAs(blob, 'legal-doc.png');
+        })
+    }
+  </script>
+</head>
+<body>
+  <div id="page">
+    <div class="title">Ходатайство о допуске защитника</div>
+    <div class="intro">
+      <p>
+        Для привлечения защитника, не имеющего адвокатского статуса, вам потребуется заранее оформить на защитника доверенность (<a href="https://ovdinfo.org/sites/default/files/sud/doverennost.doc" target="_blank">скачать</a>).
+      </p>
+      <p>
+        Вместе с тем, в соответствии с правовой позицией Верховного суда РФ, если лицо, привлекаемое к административной ответственности, либо потерпевший в соответствии с частью 2 статьи 24.4 КоАП РФ в судебном заседании заявит ходатайство о привлечении защитника или представителя к участию в деле об административном правонарушении, то такой защитник или представитель должен быть допущен к участию в деле об административном правонарушении без представления соответствующей доверенности (Пункт 8 Постановления Пленума Верховного Суда РФ от 24.03.2005 № 5 "О некоторых вопросах, возникающих у судов при применении Кодекса Российской Федерации об административных правонарушениях").
+      </p>
+      <p>
+        В случае, если вас будет защищать юрист со статусом адвоката, ходатайство о допуске защитника подавать не придется.
+      </p>
+    </div>
+    <form id="submission" onsubmit="_onSubmit(event)">
+      <div class="form-section">
+        <div class="form-heading">Как вас зовут?</div>
+        <div class="form-hint">
+          Укажите ваше ФИО в родительном падеже
+        </div>
+        <input id="author" class="form-input" type="text" placeholder="Иванова Ивана Ивановича" name="author">
+      </div>
+
+      <div class="form-section">
+        <div class="form-heading">Адрес регистрации</div>
+        <div class="form-hint">
+          Укажите адрес регистрации
+        </div>
+        <input id="address" class="form-input" type="text" placeholder="г. Москва, ул. Правобережная, д. 73, кв. 157" name="address">
+      </div>
+
+      <div class="form-section">
+        <div class="form-heading">Кто вас судит?</div>
+        <div class="form-hint">
+          Укажите фамилию и инициалы судьи в дательном падеже
+        </div>
+        <input id="judge" class="form-input" type="text" placeholder="Петрову Д.С." name="judge">
+      </div>
+
+      <div class="form-section">
+        <div class="form-heading">Где вас судят?</div>
+        <div class="form-hint">
+          Укажите название суда в родительном падеже
+        </div>
+        <input id="court" class="form-input" type="text" placeholder="Тверского районного суда г. Москвы" name="court" value="Тверского районного суда г. Москвы">
+      </div>
+
+      <div class="form-section">
+        <div class="form-heading">Как зовут вашего защитника?</div>
+        <div class="form-hint">
+          Укажите ФИО защитника в родительном падеже
+        </div>
+        <input id="defender" class="form-input" type="text" placeholder="Иванова Ивана Ивановича" name="defender">
+      </div>
+
+      <div class="form-section">
+        <button id="submit-button" type="submit" form="submission">Сгенерировать ходатайство</button>
+        <div class="form-hint text-center">
+          P.S.: Ваши данные к нам не попадут
+        </div>
+      </div>
+    </form>
+  </div>
+  <div id="text" editable data-type="area">
+    <p data-text-align="right">Федеральному судье <span id="judge-var"></span></p>
+    <p data-text-align="right"><span id="court-var"></span></p>
+    <p data-text-align="right">От <span id="author-var"></span></p>
+    <p data-text-align="right">Зарегистрированного по адресу <span id="address-var"></span></p>
+    <p></p>
+    <h1 data-text-align="center">ХОДАТАЙСТВО</h1>
+    <p>Согласно части 2 статьи 25.5 КоАП РФ, в качестве защитника или представителя к участию в производстве по делу об административном правонарушении допускается адвокат или иное лицо.</p>
+    <p>Согласно пункту 8 Постановления Пленума Верховного Суда РФ от 24.03.2005 N 5 (ред. от 19.12.2013) "О некоторых вопросах, возникающих у судов при применении Кодекса Российской Федерации об административных правонарушениях", иное лицо допускается к участию в деле об административном правонарушении в качестве защитника или представителя, если лицо, привлекаемое к административной ответственности, заявит в судебном заседании ходатайство о его привлечении в таком статусе без предоставления соответствующей доверенности.
+    </p>
+    <p><strong><em>На основании вышеизложенного ПРОШУ суд допустить до участия в рассмотрении дела об административном правонарушении в качестве моего защитника <span id="defender-var"></span> на основании данного ходатайства.</em></strong>
+    </p>
+    <p>В соответствии с частью 2 статьи 24.4 КоАП РФ ходатайство подлежит немедленному рассмотрению, решение об отказе в удовлетворении ходатайства выносится судьей в виде определения.</p>
+    <p><strong><em>На основании части 2 статьи 24.4 КоАП РФ, ПРОШУ немедленно рассмотреть ходатайство, в случае отказа ПРОШУ вынести решение в виде определения.</em></strong></p>
+    <p></p>
+    <p>«_____» __________ 2017                                                                          ______________/_________/</p>
+  </div>
+  <div id="actions">
+    <div class="print" onclick="window.print()">Print</div>
+    <div class="pdf" onclick="savePdf()">PNG</div>
+  </div>
+</body>
+</html>

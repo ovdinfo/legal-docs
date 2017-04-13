@@ -1,0 +1,145 @@
+@import url('lib/font-awesome/css/font-awesome.min.css');
+@import 'lib/substance-reset.css';
+@import 'lib/substance-forms.css';
+
+body {
+  line-height: 1.5;
+  font-family: "Avenir Next", arial, sans-serif;
+}
+
+#page {
+  max-width: 700px;
+  margin: auto;
+  padding-top: 50px;
+}
+
+#text {
+  max-width: 800px;
+  margin: auto;
+  padding-top: 50px;
+  display: none;
+}
+
+#text .sc-rich-text-area {
+  border: none;
+}
+
+#text .sc-container-editor > p {
+  margin: 0 0 10px;
+}
+
+#text .sc-heading.sm-level-1 {
+  font-size: 20px;
+}
+
+#text .sc-heading.sm-level-2 {
+  font-size: 18px;
+}
+
+#text .sc-heading.sm-level-3 {
+  font-size: 16px;
+}
+
+#actions {
+  display: none;
+  position: fixed;
+  width: 50px;
+  height: 100px;
+  border: 1px solid #000;
+  border-left: none;
+  top: 50%;
+  margin-top: -50px;
+}
+
+a {
+  color: #4990E2;
+}
+
+.title {
+  font-weight: 600;
+  font-size: 30px;
+  padding-bottom: 10px;
+}
+
+.intro {
+  padding-bottom: 20px;
+  font-size: 18px;
+}
+
+.intro > p {
+  padding-bottom: 20px;
+}
+
+.form-section {
+  padding-bottom: 20px;
+}
+
+.form-hint {
+  font-size: 14px;
+  font-family: Georgia;
+  color: #777;
+  padding-bottom: 20px;
+}
+
+.form-heading {
+  font-weight: 600;
+  font-size: 26px;
+  padding-bottom: 10px;
+}
+
+input.form-input {
+  font-family: "Avenir Next", arial, sans-serif;
+  border: 1px solid #ddd;
+  height: 40px;
+  padding: 0px 5px;
+  font-size: 16px;
+  display: block;
+  width: 100%;
+}
+
+h1, h2, h3 {
+  font-weight: 600;
+  font-family: "Avenir Next", arial, sans-serif;
+}
+
+h1 { font-size: 24px; }
+h2 { font-size: 20px; }
+h3 { font-size: 16px; }
+
+b { font-weight: 600; }
+i { font-style: italic; }
+
+.sc-rich-text-area {
+  border: 1px solid #ddd;
+  padding: 0px 20px;
+  padding-bottom: 0px;
+}
+
+.sc-rich-text-area .sc-container-editor > * {
+  margin: 20px 0;
+}
+
+#submit-button {
+  background-color: #4990E2;
+  padding: 10px;
+  border-width: 2px;
+  border-color: buttonface;
+  width: 300px;
+  font-weight: 600;
+  color: white;
+  text-align: center;
+  margin: 20px auto;
+}
+
+.text-center {
+  text-align: center;
+}
+
+@media print {
+  #text {
+    font-family: "Times New Roman", Georgia, Serif;
+  }
+  #actions {
+    display: none!important;
+  }
+}
