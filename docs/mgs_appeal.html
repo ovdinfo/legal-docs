@@ -1,0 +1,162 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Генератор документов</title>
+  <script type="text/javascript" src="lib/substance.min.js"></script>
+  <script type="text/javascript" src="lib/substance-forms.min.js"></script>
+  <script type="text/javascript" src="export.js"></script>
+  <script type="text/javascript" src="mgs_appeal.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.5.2/dom-to-image.min.js"></script>
+  <script src="https://fastcdn.org/FileSaver.js/1.1.20151003/FileSaver.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="page">
+    <div id="first-step">
+      <div class="title">Жалоба на постановление суда по делу об административном правонарушении</div>
+      <div class="intro">
+        <p>
+          <a href="https://ovdinfo.org/sites/default/files/sud/hodat_priobschenie_objasnenij_k_mat-lam_dela.doc" target="_blank">Скачать шаблон</a>.
+        </p>
+        <p>
+          Это само важное ваше действие в суде. Подачей этого ходатайства вы обязуете судью не забыть при рассмотрении дела обо всех фактах и нюансах, доказывающих вашу невиновность и раскрывающих вашу правовую позицию. Кроме этого, письменное объяснение поможет вам не растеряться в суде, отвечая на вопросы судьи. Наконец, помните - протокол судебного слушания не ведется, и ваша позиция появится в материалах дела только в том случае, если она изложена письменно. Ваша позиция и объяснения будут играть критическую роль при апелляции и в ЕСПЧ. Можно воспользоваться таким <a href="https://ovdinfo.org/sites/default/files/sud/objasnenija_obrazez.docx" target="_blank">шаблоном объяснения</a>.
+        </p>
+      </div>
+      <form id="submission" onsubmit="_onNextStep(event)">
+        <div class="form-section">
+          <div class="form-heading">Как вас зовут?</div>
+          <div class="form-hint">
+            Укажите ваше ФИО в родительном падеже
+          </div>
+          <input id="author" class="form-input" type="text" placeholder="Иванова Ивана Ивановича" name="author">
+        </div>
+
+        <div class="form-section">
+          <div class="form-heading">Адрес регистрации</div>
+          <div class="form-hint">
+            Укажите адрес регистрации
+          </div>
+          <input id="address" class="form-input" type="text" placeholder="г. Москва, ул. Правобережная, д. 73, кв. 157" name="address">
+        </div>
+
+        <div class="form-section">
+          <div class="form-heading">Кто вас судил?</div>
+          <div class="form-hint">
+            Укажите фамилию и инициалы судьи вынесшего поставновление в первой инстанции в именительном падеже
+          </div>
+          <input id="judge" class="form-input" type="text" placeholder="Петров Д.С." name="judge">
+        </div>
+
+        <div class="form-section">
+          <div class="form-heading">Где вас судили?</div>
+          <div class="form-hint">
+            Укажите название суда в именительном падеже
+          </div>
+          <input id="court" class="form-input" type="text" placeholder="Тверской районный суд г. Москвы" name="court" value="Тверской районный суд г. Москвы">
+        </div>
+
+        <div class="form-section">
+          <div class="form-heading">Пол</div>
+          <div class="form-hint">
+            Укажите ваш пол
+          </div>
+          <div class="option-group">
+            <div class="option"><input type="radio" name="sex" value="male" checked="checked">Мужской</div>
+            <div class="option"><input type="radio" name="sex" value="female">Женский</div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <div class="form-heading">Номер дела</div>
+          <div class="form-hint">
+            Укажите номер дела
+          </div>
+          <input id="case_number" class="form-input" type="text" placeholder="№ 5-43/17" name="case_number" value="№ 5-__/17">
+        </div>
+
+        <div class="form-section">
+          <div class="form-heading">Статья КоАП</div>
+          <div class="form-hint">
+            В чем вас обвиняют?
+          </div>
+          <div class="option-group">
+            <div class="option"><input type="radio" name="article" value="ч. 1 ст. 19.3" checked="checked">19.3 ч.1</div>
+            <div class="option"><input type="radio" name="article" value="ч. 5 ст. 20.2">20.2 ч.5</div>
+            <div class="option"><input type="radio" name="article" value="ч. 6.1 ст. 20.2">20.2 ч.6</div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <div class="form-heading">Дата вынесения постановления</div>
+          <div class="form-hint">
+            Постановление от...
+          </div>
+          <input id="resolution_date" class="form-input" type="text" placeholder="30 марта 2017 г." name="resolution_date" value="">
+        </div>
+
+        <div class="form-section">
+          <div class="form-heading">Нарушенные права</div>
+          <div class="form-hint">
+            Отметьте что из этого относится к вам
+          </div>
+          <div class="option-group">
+            <div class="option"><input type="checkbox" name="violated_rights" value="A3">Я подавал ходатайство о вызове полицейских, которые меня задерживали, для допроса, но судья их оставил без удовлетворения</div>
+            <div class="option"><input type="checkbox" name="violated_rights" value="A4">Я подавал ходатайство о вызове и допросе в качестве свидетелей людей, которые могли бы дать показания в мою защиту, но судья их оставил без удовлетворени</div>
+            <div class="option"><input type="checkbox" name="violated_rights" value="A5">Я подавал ходатайство о приобщении к материалам дела фото или видео, но судья их оставил без удовлетворения</div>
+            <div class="option"><input type="checkbox" name="violated_rights" value="A6">Я явился в суд, но меня не вызвали в судебное заседание</div>
+            <div class="option"><input type="checkbox" name="violated_rights" value="A7">Меня обвинили в нарушении ч. 5 ст. 20.2 КоАП РФ и держали в ОВД больше трех часов</div>
+            <div class="option"><input type="checkbox" name="violated_rights" value="A8">Меня дольше разумного времени держали в автозаке, который катался по Москве, или же стоял в месте задержания или во дворе ОВД</div>
+            <div class="option"><input type="checkbox" name="violated_rights" value="B">В суде я не отрицал своего участия в публичном мероприятии, то есть я не утверждал, что случайно проходил мимо толпы и т.п.</div>
+            <div class="option"><input type="checkbox" name="violated_rights" value="B3">В протоколе моего задержания написано, что я выкрикивал(а) лозунги или в судебном процессе я заявил(а), что демонстрировал(а) плакат</div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <button id="submit-button" type="submit" form="submission">Сгенерировать ходатайство</button>
+          <div class="form-hint text-center">
+            P.S.: Ваши данные к нам не попадут<br>
+            документ генерируется в вашем браузере
+          </div>
+        </div>
+      </form>
+    </div>
+    <div id="second-step">
+      <div class="title">Фактура</div>
+      <div class="intro">
+        <p>
+          Теперь нужно описать факты и отредактировать фрагменты текста.
+        </p>
+      </div>
+      <form id="second-submission" onsubmit="_onSubmit(event)">
+        <div class="form-section">
+          <div class="form-heading">Факты</div>
+          <div class="form-hint">
+            Описание произошедшего, по образцу объяснений
+          </div>
+          <div id="facts" editable data-type="area">
+          </div>
+        </div>
+
+        <div class="form-section">
+          <div class="form-heading">Факты</div>
+          <div class="form-hint">
+            Описание произошедшего, по образцу объяснений
+          </div>
+          <div id="A3" editable data-type="area">
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div id="text" editable data-type="area">
+  </div>
+  <div id="actions">
+    <div class="print" onclick="window.print()"><i class="fa fa-print fa-2x"></i></div>
+    <div class="pdf" onclick="savePng()"><i class="fa fa-file-image-o fa-2x"></i></div>
+    <div class="doc" onclick="saveDoc()"><i class="fa fa-file-word-o fa-2x"></i></div>
+  </div>
+</body>
+</html>

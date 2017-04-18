@@ -40,6 +40,10 @@ body {
   font-size: 16px;
 }
 
+#second-step {
+  display: none;
+}
+
 #actions {
   display: none;
   position: fixed;
@@ -148,11 +152,19 @@ i { font-style: italic; }
   text-align: center;
 }
 
+.sc-table td.sc-table-cell {
+  width: 50%;
+  border: none;
+}
+
 @media print {
   #text {
     font-family: "Times New Roman", Georgia, Serif;
   }
   #actions {
     display: none!important;
+  }
+  table {
+    border: none;
   }
 }

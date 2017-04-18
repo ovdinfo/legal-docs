@@ -8132,12 +8132,12 @@ DocumentChange.prototype.invert = function invert () {
 
 
 DocumentChange.prototype.isAffected = function isAffected (path) {
-  console.error('DEPRECATED: use change.hasUpdated() instead');
+  //console.error('DEPRECATED: use change.hasUpdated() instead');
   return this.hasUpdated(path)
 };
 
 DocumentChange.prototype.isUpdated = function isUpdated (path) {
-  console.error('DEPRECATED: use change.hasUpdated() instead');
+  //console.error('DEPRECATED: use change.hasUpdated() instead');
   return this.hasUpdated(path)
 };
 
