@@ -44,7 +44,8 @@ body {
   display: none;
 }
 
-#actions {
+#actions,
+#form-actions {
   display: none;
   position: fixed;
   width: 50px;
@@ -57,13 +58,20 @@ body {
   padding: 10px;
 }
 
-#actions div {
+#form-actions {
+  display: block;
+  height: 100px;
+}
+
+#actions div,
+#form-actions div {
   margin-bottom: 10px;
   opacity: 0.5;
   cursor: pointer;
 }
 
-#actions div:hover {
+#actions div:hover,
+#form-actions div:hover {
   margin-bottom: 10px;
   opacity: 1;
 }
@@ -102,6 +110,10 @@ a {
   font-weight: 600;
   font-size: 26px;
   padding-bottom: 10px;
+}
+
+.hidden {
+  display: none;
 }
 
 input.form-input {

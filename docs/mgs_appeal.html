@@ -98,6 +98,22 @@
         </div>
 
         <div class="form-section">
+          <div class="form-heading">ОВД</div>
+          <div class="form-hint">
+            В какое ОВД вас доставили?
+          </div>
+          <input id="ovd" class="form-input" type="text" placeholder="ОВД по Донскому району г. Москвы" name="ovd" value="ОВД по __________ району г. Москвы">
+        </div>
+
+        <div class="form-section">
+          <div class="form-heading">Штраф</div>
+          <div class="form-hint">
+            Какой штраф вам присудили? Укажите цифру и расшиврофку в скобках
+          </div>
+          <input id="penalty" class="form-input" type="text" placeholder="10 000 (десять тысяч) рублей" name="penalty" value="">
+        </div>
+
+        <div class="form-section">
           <div class="form-heading">Нарушенные права</div>
           <div class="form-hint">
             Отметьте что из этого относится к вам
@@ -115,7 +131,7 @@
         </div>
 
         <div class="form-section">
-          <button id="submit-button" type="submit" form="submission">Сгенерировать ходатайство</button>
+          <button id="submit-button" type="submit" form="submission">Перейти ко второму шагу</button>
           <div class="form-hint text-center">
             P.S.: Ваши данные к нам не попадут<br>
             документ генерируется в вашем браузере
@@ -132,7 +148,7 @@
       </div>
       <form id="second-submission" onsubmit="_onSubmit(event)">
         <div class="form-section">
-          <div class="form-heading">Факты</div>
+          <div class="form-heading">Факты дела</div>
           <div class="form-hint">
             Описание произошедшего, по образцу объяснений
           </div>
@@ -140,18 +156,102 @@
           </div>
         </div>
 
-        <div class="form-section">
-          <div class="form-heading">Факты</div>
+        <div class="form-section hidden">
+          <div class="form-heading">Нарушение права на допрос свидетелей, показывающих против меня</div>
           <div class="form-hint">
-            Описание произошедшего, по образцу объяснений
+            Укажите о каких сотрудниках полиции идет речь (ФИО и звание), а так же что вам вменяется
           </div>
           <div id="A3" editable data-type="area">
+          </div>
+        </div>
+
+        <div class="form-section hidden">
+          <div class="form-heading">Нарушение права на допрос ключевых свидетелей защиты</div>
+          <div class="form-hint">
+            Перечислите свидетелей (ФИО), где они находились и что видели (что вы не оказывали сопротивления сотрудникам полиции или что-то еще)
+          </div>
+          <div id="A4" editable data-type="area">
+          </div>
+        </div>
+
+        <div class="form-section hidden">
+          <div class="form-heading">Нарушение права на состязательность и равенство сторон</div>
+          <div class="form-hint">
+            Укажите что вы пытались приобщить к делу (фото или видеоматериалы), а так же что на них было запечатлено
+          </div>
+          <div id="A5" editable data-type="area">
+          </div>
+        </div>
+
+        <div class="form-section hidden">
+          <div class="form-heading">Нарушение права на рассмотрение дела с моим участием</div>
+          <div class="form-hint">
+            Укажите когда и кем рассматривалось дело
+          </div>
+          <div id="A6" editable data-type="area">
+          </div>
+        </div>
+
+        <div class="form-section hidden">
+          <div class="form-heading">Немедленность доставления в ОВД</div>
+          <div class="form-hint">
+            Укажите правильное время и расстояние (хотя бы очень примерно)
+          </div>
+          <div id="A8" editable data-type="area">
+          </div>
+        </div>
+
+        <div class="form-section hidden">
+          <div class="form-heading">Сроки задержания</div>
+          <div class="form-hint">
+            Укажите правильное время и дату
+          </div>
+          <div id="A9" editable data-type="area">
+          </div>
+        </div>
+
+        <div class="form-section hidden">
+          <div class="form-heading">Реализация права на свободу выражения мнений</div>
+          <div class="form-hint">
+            Укажите правильное время и расстояние (хотя бы очень примерно)
+          </div>
+          <div id="B3" editable data-type="area">
+          </div>
+        </div>
+
+        <div class="form-section">
+          <div class="form-heading">Необоснованное назначение наказания</div>
+          <div class="form-hint">
+            Перечислите смягчающие обстоятельства
+          </div>
+          <div id="C" editable data-type="area">
+          </div>
+        </div>
+
+        <div class="form-section">
+          <div class="form-heading">Приложения</div>
+          <div class="form-hint">
+            Перечислите что вы прикладывайте к апелляции
+          </div>
+          <div id="attachment" editable data-type="area">
+          </div>
+        </div>
+
+        <div class="form-section">
+          <button id="submit-button" type="submit" form="second-submission">Сгенерировать ходатайство</button>
+          <div class="form-hint text-center">
+            P.S.: Ваши данные к нам не попадут<br>
+            документ генерируется в вашем браузере
           </div>
         </div>
       </form>
     </div>
   </div>
   <div id="text" editable data-type="area">
+  </div>
+  <div id="form-actions">
+    <div class="save" onclick="saveInMemory()" title="Сохранить форму в памяти браузера"><i class="fa fa-save fa-2x"></i></div>
+    <div class="clear" onclick="clearMemory()" title="Очистить память браузера"><i class="fa fa-trash fa-2x"></i></div>
   </div>
   <div id="actions">
     <div class="print" onclick="window.print()"><i class="fa fa-print fa-2x"></i></div>
