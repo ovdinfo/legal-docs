@@ -19,10 +19,13 @@
       <div class="title">Жалоба на постановление суда по делу об административном правонарушении</div>
       <div class="intro">
         <p>
-          <a href="https://ovdinfo.org/sites/default/files/sud/hodat_priobschenie_objasnenij_k_mat-lam_dela.doc" target="_blank">Скачать шаблон</a>.
+          Апелляция — это тот неловкий этап, когда вы проиграли, а система дает вам второй шанс. Но, на самом деле, на стадии апелляции игра только начинается. Ваши шансы выиграть сильно возрастают, а проиграть вы и вовсе не можете — потому что уже проиграли. Скорее всего, после решения судебного суда вы впадете в апатию — но не предавайтесь ей слишком долго: чтобы продолжить игру, у вас есть всего 10 дней с момента получения постановления районного суда.
         </p>
         <p>
-          Это само важное ваше действие в суде. Подачей этого ходатайства вы обязуете судью не забыть при рассмотрении дела обо всех фактах и нюансах, доказывающих вашу невиновность и раскрывающих вашу правовую позицию. Кроме этого, письменное объяснение поможет вам не растеряться в суде, отвечая на вопросы судьи. Наконец, помните - протокол судебного слушания не ведется, и ваша позиция появится в материалах дела только в том случае, если она изложена письменно. Ваша позиция и объяснения будут играть критическую роль при апелляции и в ЕСПЧ. Можно воспользоваться таким <a href="https://ovdinfo.org/sites/default/files/sud/objasnenija_obrazez.docx" target="_blank">шаблоном объяснения</a>.
+          Учтите, что составление апелляционной жалобы — самый важный момент, и из чего жалоба будет состоять, зависит от того, как рассматривалось ваше дело в районном суде. Мы рекомендуем вам прежде, чем подавать жалобу, <a href="https://docs.google.com/forms/d/e/1FAIpQLSchJnDdjoEZBxU67RuZpM6i0mXzooYoL4mtgRshU8LI1srbEA/viewform" target="_blank">проконсультироваться со специалистами</a>. Но если вы чувствуете себя уверенно, можете составить текст жалобы самостоятельно, для этого воспользуйтесь <a href="https://ovdinfo.org/sites/default/files/sud/appeal_26.docx">подробным шаблоном жалобы</a> или заполните данную форму-генератор жалобы.
+        </p>
+        <p>
+          Шаблон жалобы специально подготовленным юристами ПЦ «Мемориал» с учетом перспектив жалобы в ЕСПЧ. Желтым выделены те места, которые вы должны самостоятельно поменять.
         </p>
       </div>
       <form id="submission" onsubmit="_onNextStep(event)">
@@ -45,9 +48,12 @@
         <div class="form-section">
           <div class="form-heading">Кто вас судил?</div>
           <div class="form-hint">
-            Укажите фамилию и инициалы судьи вынесшего поставновление в первой инстанции в именительном падеже
+            Укажите фамилию и инициалы судьи вынесшего поставновление в первой инстанции в именительном и родительном падежах
           </div>
           <input id="judge" class="form-input" type="text" placeholder="Петров Д.С." name="judge">
+          <div class="form-hint">
+          </div>
+          <input id="judge-genetive" class="form-input" type="text" placeholder="Петровой Д.С." name="judge-genetive">
         </div>
 
         <div class="form-section">
@@ -85,7 +91,7 @@
           <div class="option-group">
             <div class="option"><input type="radio" name="article" value="ч. 1 ст. 19.3" checked="checked">19.3 ч.1</div>
             <div class="option"><input type="radio" name="article" value="ч. 5 ст. 20.2">20.2 ч.5</div>
-            <div class="option"><input type="radio" name="article" value="ч. 6.1 ст. 20.2">20.2 ч.6</div>
+            <div class="option"><input type="radio" name="article" value="ч. 6.1 ст. 20.2">20.2 ч.6.1</div>
           </div>
         </div>
 
@@ -108,7 +114,7 @@
         <div class="form-section">
           <div class="form-heading">Штраф</div>
           <div class="form-hint">
-            Какой штраф вам присудили? Укажите цифру и расшиврофку в скобках
+            Какой штраф вам присудили? Укажите цифру и расшифровку в скобках
           </div>
           <input id="penalty" class="form-input" type="text" placeholder="10 000 (десять тысяч) рублей" name="penalty" value="">
         </div>
@@ -120,13 +126,13 @@
           </div>
           <div class="option-group">
             <div class="option"><input type="checkbox" name="violated_rights" value="A3">Я подавал ходатайство о вызове полицейских, которые меня задерживали, для допроса, но судья их оставил без удовлетворения</div>
-            <div class="option"><input type="checkbox" name="violated_rights" value="A4">Я подавал ходатайство о вызове и допросе в качестве свидетелей людей, которые могли бы дать показания в мою защиту, но судья их оставил без удовлетворени</div>
+            <div class="option"><input type="checkbox" name="violated_rights" value="A4">Я подавал ходатайство о вызове и допросе в качестве свидетелей людей, которые могли бы дать показания в мою защиту, но судья их оставил без удовлетворения</div>
             <div class="option"><input type="checkbox" name="violated_rights" value="A5">Я подавал ходатайство о приобщении к материалам дела фото или видео, но судья их оставил без удовлетворения</div>
             <div class="option"><input type="checkbox" name="violated_rights" value="A6">Я явился в суд, но меня не вызвали в судебное заседание</div>
             <div class="option"><input type="checkbox" name="violated_rights" value="A7">Меня обвинили в нарушении ч. 5 ст. 20.2 КоАП РФ и держали в ОВД больше трех часов</div>
-            <div class="option"><input type="checkbox" name="violated_rights" value="A8">Меня дольше разумного времени держали в автозаке, который катался по Москве, или же стоял в месте задержания или во дворе ОВД</div>
+            <div class="option"><input type="checkbox" name="violated_rights" value="A8">Меня дольше разумного времени держали в автозаке, который катался по Москве или же стоял в месте задержания или во дворе ОВД</div>
             <div class="option"><input type="checkbox" name="violated_rights" value="B">В суде я не отрицал своего участия в публичном мероприятии, то есть я не утверждал, что случайно проходил мимо толпы и т.п.</div>
-            <div class="option"><input type="checkbox" name="violated_rights" value="B3">В протоколе моего задержания написано, что я выкрикивал(а) лозунги или в судебном процессе я заявил(а), что демонстрировал(а) плакат</div>
+            <div class="option"><input type="checkbox" name="violated_rights" value="B3">В протоколе моего задержания написано, что я выкрикивал(а) лозунги, или в судебном процессе я заявил(а), что демонстрировал(а) плакат</div>
           </div>
         </div>
 
@@ -150,7 +156,7 @@
         <div class="form-section">
           <div class="form-heading">Факты дела</div>
           <div class="form-hint">
-            Описание произошедшего, по образцу объяснений
+            Описание произошедшего по образцу объяснений
           </div>
           <div id="facts" editable data-type="area">
           </div>
