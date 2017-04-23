@@ -20,3 +20,9 @@ Start server
 ```bash
 node make -s -w
 ```
+
+Naviage to
+
+```bash
+http://localhost:5555/
+```
