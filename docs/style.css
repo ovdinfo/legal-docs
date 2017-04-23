@@ -179,4 +179,8 @@ i { font-style: italic; }
   table {
     border: none;
   }
+  td {
+    width: 50%;
+    border: none;
+  }
 }
