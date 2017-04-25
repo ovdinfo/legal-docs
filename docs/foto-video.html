@@ -1,0 +1,188 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Генератор документов</title>
+  <script type="text/javascript" src="lib/substance.min.js"></script>
+  <script type="text/javascript" src="lib/substance-forms.min.js"></script>
+  <script type="text/javascript" src="export.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.5.2/dom-to-image.min.js"></script>
+  <script src="https://fastcdn.org/FileSaver.js/1.1.20151003/FileSaver.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .sc-rich-text-area .sc-container-editor > h1,
+    .sc-rich-text-area .sc-container-editor > h2 {
+      margin: 2px 0px;
+    }
+
+    #text .sc-container-editor > p.sm-align-right {
+      margin: 0 0 4px;
+    }
+  </style>
+  <script type="text/javascript">
+    var forms
+    window.addEventListener('load', function() {
+      forms = new SubstanceForms()
+      addTextArea('evidence')
+      addTextArea('attachment')
+    })
+
+    function addTextArea(id) {
+      let el = document.getElementById(id)
+      forms.addRichTextArea(id, el, {
+        enabledPackages: ['heading', 'strong', 'emphasis', 'text-align', 'xref']
+      })
+    }
+
+    function renderTpl(data) {
+      let tpl = `
+        <p data-text-align="right">Федеральному судье ${data.judge}</p>
+        <p data-text-align="right">районного суда ${data.court}</p>
+        <p data-text-align="right">От ${data.author}</p>
+        <p data-text-align="right">Проживающего по адресу ${data.address}</p>
+        <p></p>
+        <h1 data-text-align="center">ХОДАТАЙСТВО</h1>
+        <h2 data-text-align="center">о приобщении видеозаписи и фотографий к материалам дела</h2>
+        <p>С целью выяснения всех обстоятельств вменяемого мне правонарушения, прошу приобщить в качестве доказательств к материалам дела, в соответствии с частью 2 статьи 26.7 КоАП:</p>
+        ${data.evidence}
+        <p>О наличии видеозаписи и фотографий было сообщено свидетелем ${data.witness} в ходе судебного заседания.</p>
+        <p>Приложение:</p>
+        ${data.attachment}
+        
+        <p>Прошу ознакомиться в ходе судебного заседание с предоставленными материалами.</p>
+        <p>В соответствии с частью 2 статьи 24.4 КоАП РФ ходатайство подлежит немедленному рассмотрению, решение об отказе в удовлетворении ходатайства выносится судьей в виде определения.</p>
+        <p><strong><em>На основании части 2 статьи 24.4 КоАП РФ, ПРОШУ немедленно рассмотреть ходатайство, в случае отказа ПРОШУ вынести решение в виде определения</em></strong></p>
+        <p></p>
+        <p>«_____» __________ 2017                                                                          ______________/_________/</p>
+
+      `
+
+      return tpl
+    }
+
+    function _onSubmit(e) {
+      e.preventDefault()
+      e.stopPropagation()
+      var data = {
+        author: document.getElementById('author').value,
+        address: document.getElementById('address').value,
+        judge: document.getElementById('judge_genetive').value,
+        court: document.getElementById('court').value,
+        witness: document.getElementById('witness').value,
+        evidence: forms.getHTML('evidence'),
+        attachment: forms.getHTML('attachment')
+      }
+
+      var page = document.getElementById('page')
+      var text = document.getElementById('text')
+      var actions = document.getElementById('actions')
+
+      setTimeout(function() {
+        page.style.display = 'none'
+      }, 100)
+
+      setTimeout(function() {
+        text.style.display = 'block'
+        actions.style.display = 'block'
+        window.scrollTo(0, 0)
+      }, 100)
+
+      var tpl = renderTpl(data)
+      text.innerHTML = tpl
+
+      forms.addRichTextArea('text', document.getElementById('text'), {
+        enabledPackages: ['heading', 'strong', 'emphasis', 'link', 'list', 'table', 'text-align']
+      })
+    }
+  </script>
+</head>
+<body>
+  <div id="page">
+    <div class="title">Ходатайство о приобщении видеозаписи и фотографий к материалам дела</div>
+    <div class="intro">
+      <p>
+      </p>
+    </div>
+    <form id="submission" onsubmit="_onSubmit(event)">
+      <div class="form-section">
+        <div class="form-heading">Как вас зовут?</div>
+        <div class="form-hint">
+          Укажите ваше ФИО в родительном падеже
+        </div>
+        <input id="author" class="form-input" type="text" placeholder="Иванова Ивана Ивановича" name="author">
+      </div>
+
+      <div class="form-section">
+        <div class="form-heading">Адрес регистрации</div>
+        <div class="form-hint">
+          Укажите адрес регистрации
+        </div>
+        <input id="address" class="form-input" type="text" placeholder="г. Москва, ул. Правобережная, д. 73, кв. 157" name="address">
+      </div>
+
+      <div class="form-section">
+        <div class="form-heading">Кто вас судил?</div>
+        <div class="form-hint">
+          Укажите фамилию и инициалы судьи вынесшего поставновление в первой инстанции в родительном падеже
+        </div>
+        <input id="judge_genetive" class="form-input" type="text" placeholder="Петровой Д.С." name="judge_genetive">
+      </div>
+
+      <div class="form-section">
+        <div class="form-heading">Где вас судили?</div>
+        <div class="form-hint">
+          Укажите название суда в именительном падеже
+        </div>
+        <input id="court" class="form-input" type="text" placeholder="Тверской районный суд г. Москвы" name="court" value="Тверской районный суд г. Москвы">
+      </div>
+
+      <div class="form-section">
+        <div class="form-heading">Как зовут свидетеля?</div>
+        <div class="form-hint">
+          Укажите как зовут свидетеля осуществлявшего фото/видео съемку в творительном падеже
+        </div>
+        <input id="witness" class="form-input" type="text" placeholder="Сидоровым Александром Федоровичем" name="witness" value="">
+      </div>
+
+      <div class="form-section">
+        <div class="form-heading">Материалы</div>
+        <div class="form-hint">
+          Какие материалы вы просите приобщить к делу?
+        </div>
+        <div id="evidence" editable data-type="area">
+          <p>1. CD-R-диск с видеозаписью и/или фотографиями (<span data-type="xref">название файлов</span>)</p>
+          <p>2. Распечатку фотографий, содержащихся в файлах, записанных на вышеуказанный носитель</p>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <div class="form-heading">Материалы</div>
+        <div class="form-hint">
+          Какие материалы вы просите приобщить к делу?
+        </div>
+        <div id="attachment" editable data-type="area">
+          <p>1. CD-R-диск</p>
+          <p><span data-type="xref">2. Распечатка каталога файлов на диске</span></p>
+          <p><span data-type="xref">3. Раскадровка видеозаписи</span></p>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <button id="submit-button" type="submit" form="submission">Сгенерировать ходатайство</button>
+        <div class="form-hint text-center">
+          P.S.: Ваши данные к нам не попадут
+        </div>
+      </div>
+    </form>
+  </div>
+  <div id="text" editable data-type="area">
+  </div>
+  <div id="actions">
+    <div class="print" onclick="window.print()"><i class="fa fa-print fa-2x"></i></div>
+    <div class="pdf" onclick="savePng()"><i class="fa fa-file-image-o fa-2x"></i></div>
+    <div class="doc" onclick="saveDoc()"><i class="fa fa-file-word-o fa-2x"></i></div>
+  </div>
+</body>
+</html>
