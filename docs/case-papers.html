@@ -30,7 +30,7 @@
     function renderTpl(data) {
       let tpl = `
         <p data-text-align="right">Федеральному судье ${data.judge}</p>
-        <p data-text-align="right">районного суда ${data.court}</p>
+        <p data-text-align="right">${data.court}</p>
         <p data-text-align="right">От ${data.author}</p>
         <p data-text-align="right">Проживающего по адресу ${data.address}</p>
         <p></p>
@@ -117,9 +117,9 @@
       <div class="form-section">
         <div class="form-heading">Где вас судили?</div>
         <div class="form-hint">
-          Укажите название суда в именительном падеже
+          Укажите название суда в родительном падеже
         </div>
-        <input id="court" class="form-input" type="text" placeholder="Тверской районный суд г. Москвы" name="court" value="Тверской районный суд г. Москвы">
+        <input id="court" class="form-input" type="text" placeholder="Тверского районного суда г. Москвы" name="court" value="Тверского районного суда г. Москвы">
       </div>
 
       <div class="form-section">
